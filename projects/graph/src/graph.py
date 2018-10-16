@@ -33,7 +33,15 @@ class Graph:
             self.vertices[v1].edges.add(v2)
         else:
             raise IndexError("That vertex does not exist!")
-
+    def dft(self, starting_node, visited=None):
+        # Mark the node as visited
+        if visited is None:
+            visited = []
+        visited.append(starting_node)
+        # For each child, if that child hasn't been visited, call dft() on that node
+        # for child in children:
+        #    if child not in visited:
+                  # dft(child, visted)
 
 class Vertex:
     def __init__(self, vertex_id, x=None, y=None):
