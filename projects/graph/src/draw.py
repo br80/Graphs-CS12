@@ -18,8 +18,6 @@ class BokehGraph:
         N = len( graph.vertices )
         node_indices = list(graph.vertices.keys())
 
-        print(node_indices)
-
         plot = figure(title="Graph Layout Demonstration", x_range=(-7,7), y_range=(-7,7),
                       tools="", toolbar_location=None)
 
