@@ -30,14 +30,18 @@ class BokehGraph:
         # graph.node_renderer.data_source.add(node_colors, 'color')
         graph_renderer.node_renderer.glyph = Circle(radius=0.5, fill_color="red")
 
-        graph_renderer.edge_renderer.data_source.data = dict(
-            start=[0]*N,
-            end=node_indices)
+        edge_start = []
+        edge_end = []
 
-        d = dict(
-            start=[0]*N,
-            end=node_indices)
-        print(d)
+        # O(E), where E is the total number of edges
+        for vertex_id in node_indices:
+            for v in graph.vertices[vertex_id].edges:
+                edge_start.append(vertex_id)
+                edge_end.append(v)
+
+        graph_renderer.edge_renderer.data_source.data = dict(
+            start=edge_start,
+            end=edge_end)
 
         ### start of layout code
         # circ = [i*2*math.pi/8 for i in node_indices]
