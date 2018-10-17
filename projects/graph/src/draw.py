@@ -6,9 +6,6 @@ from bokeh.models import GraphRenderer, StaticLayoutProvider, Oval, Circle
 from bokeh.palettes import Spectral8
 from graph import Graph
 
-
-
-
 class BokehGraph:
     def __init__(self, graph):
         self.graph = graph
@@ -61,19 +58,6 @@ class BokehGraph:
         show(plot)
 
 
-
-
-graph = Graph()  # Instantiate your graph
-graph.add_vertex('0')
-graph.add_vertex('1')
-graph.add_vertex('2')
-graph.add_vertex('3')
-graph.add_edge('0', '1')
-graph.add_edge('0', '3')
-
-
-bg = BokehGraph(graph)
-bg.draw()
 
 
 
