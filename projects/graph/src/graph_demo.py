@@ -23,30 +23,39 @@ def createDefaultGraph():
     bg.draw()
 
 
+# O(n^2)
 def createRandomGraph(numNodes, numEdges):
     graph = Graph()  # Instantiate your graph
 
     all_edges = []
 
+    # O(n^2)
     for i in range(numNodes):
         for j in range(i + 1, numNodes):
             all_edges.append( (i,  j) )
 
+    # O(n)
     random.shuffle(all_edges)
     edges = all_edges[:numEdges]
 
+    # O(1)
     if numEdges > len(all_edges):
         print("Warning: Too many edges")
 
+    # O(n)
     for edge in edges:
         print(edge)
 
+    # O(n)
     for i in range(numNodes):
         graph.add_vertex(i)
 
+    # O(n)
     for edge in edges:
         print(edge)
         graph.add_edge(edge[0], edge[1])
+
+    print(len(edges))
 
     bg = BokehGraph(graph)
     bg.draw()
