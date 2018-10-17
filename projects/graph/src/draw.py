@@ -62,9 +62,6 @@ class BokehGraph:
         plot.add_layout(labels)
 
 
-
-
-
         output_file('graph.html')
         show(plot)
 
