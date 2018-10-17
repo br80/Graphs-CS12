@@ -33,26 +33,26 @@ class Graph:
             self.vertices[v1].edges.add(v2)
         else:
             raise IndexError("That vertex does not exist!")
-    def dft(self, starting_node, visited=None):
-        # Mark the node as visited
-        if visited is None:
-            visited = []
-        visited.append(starting_node)
-        # For each child, if that child hasn't been visited, call dft() on that node
-        # for child in children:
-        #    if child not in visited:
-                  # dft(child, visted)
-    def bft(self, starting_node):
-        # create an empty queue
-        q = Queue()
-        # Put starting vert in the queue
-        q.enqueue(starting_node)
-        visited = []
-        while q.size() > 0:
-            # Remove the first node from the queue...
-            # If it has not been visited yet,...
-            # Mark it as visited....
-            # Then put all it's children in the back of the queue
+    # def dft(self, starting_node, visited=None):
+    #     # Mark the node as visited
+    #     if visited is None:
+    #         visited = []
+    #     visited.append(starting_node)
+    #     # For each child, if that child hasn't been visited, call dft() on that node
+    #     # for child in children:
+    #     #    if child not in visited:
+    #               # dft(child, visted)
+    # def bft(self, starting_node):
+    #     # create an empty queue
+    #     q = Queue()
+    #     # Put starting vert in the queue
+    #     q.enqueue(starting_node)
+    #     visited = []
+    #     while q.size() > 0:
+    #         # Remove the first node from the queue...
+    #         # If it has not been visited yet,...
+    #         # Mark it as visited....
+    #         # Then put all it's children in the back of the queue
 
 
 
