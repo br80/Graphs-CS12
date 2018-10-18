@@ -26,7 +26,7 @@ def createDefaultGraph():
     graph.add_edge(4, 3)
     graph.add_edge(6, 7)
 
-    print(graph.dfs(5, 7))
+    print(graph.dfs_path(5, 6))
 
     # bg = BokehGraph(graph)
     # bg.draw()

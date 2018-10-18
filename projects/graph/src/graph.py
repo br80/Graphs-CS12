@@ -159,6 +159,25 @@ class Graph:
                     q.enqueue(edge)  # Add it to the back of the queue
         return False
 
+    # Instead of storing just nodes in our queue, we store an entire path
+    def bfs_path(self, starting_node, target_value):
+        q = Queue()  # Create an empty Queue
+        q.enqueue([starting_node]) # Put the first node in the queue as a path
+        visited = []
+        while q.size() > 0: # Then, while the queue is not empty
+            path = q.dequeue()  # Dequeue the first path in the queue
+            v = path[-1]  # Get the current vertex (the last element in the path)
+            if v not in visited:  # If that vertex has not been visited...
+                if v == target_value:  # Check if it's the target value
+                    return path
+                visited.append(v) # ...mark as visited...
+                for next_vert in self.vertices[v].edges:  # Then put all the children in the queue
+                    new_path = list(path)
+                    new_path.append(next_vert)  # ...as a path.
+                    q.enqueue(new_path)
+        return None
+
+
     def dfs(self, starting_node, target_node, visited=None):
         """
         Depth first traversal using recursion
@@ -168,6 +187,7 @@ class Graph:
             # quese of visited nodes
             visited = []
         visited.append(starting_node)
+        print(starting_node)
         if starting_node == target_node:
             return True
         # For each child, if that child hasn't been visited, call dft() on that node
@@ -177,7 +197,30 @@ class Graph:
                     return True
         return False
 
-
+    def dfs_path(self, start_vert, target_value, visited=None, path=None):
+        # Initialize starting visited/path lists
+        if visited is None:
+            visited = []
+        if path is None:
+            path = []
+        # Mark the first node as visited
+        visited.append(start_vert)
+        print(start_vert)
+        # Add the node to the path
+        extended_path = list(path)
+        extended_path.append(start_vert)  # ...as a path.
+        # Return the path if we find our target node
+        if start_vert == target_value:
+            return extended_path
+        # Otherwise, for each child
+        for child_vert in self.vertices[start_vert].edges:
+            if child_vert not in visited:  # If it hasn't been visited yet
+                # Call dfs_path on the children
+                new_path = self.dfs_path(child_vert, target_value, visited, extended_path)
+                # Return the path if it's valid
+                if new_path:
+                    return new_path
+        return None
 
 
 
