@@ -2,6 +2,7 @@
 Simple graph implementation compatible with BokehGraph class.
 """
 import random
+import collections
 
 class Queue:
     def __init__(self):
@@ -69,41 +70,114 @@ class Graph:
         """
         # Mark the node as visited
         if visited is None:
+            # quese of visited nodes
             visited = []
         visited.append(starting_node)
         # For each child, if that child hasn't been visited, call dft() on that node
-        # for child in children:
-        #    if child not in visited:
-                  # dft(child, visted)
+        for node in self.vertices[starting_node].edges:
+            if node not in visited:
+                self.dft(node, visited)
+        return visited
+
+    # Mark the node as visited, then for each child that hasn't been visited, call DFT() on that node.
+
+
+    # def bft(self, starting_node):
+    #     """
+    #     Breadth first traversal using a queue
+    #     """
+    #     # create an empty queue
+    #     visited, queue = set(), collections.deque([starting_node]) # Put starting vert in the queue
+    #     while queue:
+    #         vertex = queue.popleft() # Remove the first node from the queue...
+    #         if vertex not in visited: # If it has not been visited yet,...
+    #             visited.add(vertex) # Mark it as visited....
+    #             print(vertex)
+    #             for neighbor in self.vertices[vertex].edges: # Then put all it's children in the back of the queue
+    #                 if neighbor not in visited:
+    #                     queue.append(neighbor)
+    #     return visited
+
     def bft(self, starting_node):
-        """
-        Breadth first traversal using a queue
-        """
+        visited = []
         # create an empty queue
         q = Queue()
         # Put starting vert in the queue
         q.enqueue(starting_node)
-        visited = []
-        while q.size() > 0:
-            # Remove the first node from the queue...
-            # If it has not been visited yet,...
-            # Mark it as visited....
-            # Then put all it's children in the back of the queue
+        while q.size() > 0:  # whlie queue is not empty...
+            dequeued = q.dequeue() # Dequeue the first element
+            visited.append(dequeued)  # Mark it as visited
+            print(dequeued)
+            for edge in self.vertices[dequeued].edges:  #For each child
+                if edge not in visited:  # If it hasn't been visited
+                    q.enqueue(edge)  # Add it to the back of the queue
+        return visited
+
+
+
+    # def dft_s(self, starting_node):
+    #     visited = []
+    #     # create an empty stack
+    #     s = Stack()
+    #     # Put starting vert on top of the stack
+    #     s.push(starting_node)
+    #     while s.size() > 0:  # whlie stack is not empty...
+    #         destacked = s.pop() # Pop the first element
+    #         visited.append(destacked)  # Mark it as visited
+    #         print(destacked)
+    #         for edge in self.vertices[destacked].edges:  #For each child
+    #             if edge not in visited:  # If it hasn't been visited
+    #                 s.push(edge)  # Add it to the top of the stack
+    #     return visited
 
     def dft_s(self, starting_node):
-        """
-        Depth first traversal using stack
-        """
-        # create an empty stack
         s = Stack()
-        # Put starting vert in the stack
         s.push(starting_node)
         visited = []
         while s.size() > 0:
-            # Pop the first node off the stack...
-            # If it has not been visited yet,...
-            # Mark it as visited....
-            # Then put all it's children on top of the stack
+            current = s.pop()
+            if current not in visited:
+                visited.append(current)
+                print(visited)
+                for edge in self.vertices[current].edges:
+                    s.push(edge)
+
+    def bfs(self, starting_node, target_node):
+        visited = []
+        # create an empty queue
+        q = Queue()
+        # Put starting vert in the queue
+        q.enqueue(starting_node)
+        while q.size() > 0:  # whlie queue is not empty...
+            dequeued = q.dequeue() # Dequeue the first element
+            visited.append(dequeued)  # Mark it as visited
+            print(dequeued)
+            if dequeued == target_node:
+                return True
+            for edge in self.vertices[dequeued].edges:  #For each child
+                if edge not in visited:  # If it hasn't been visited
+                    q.enqueue(edge)  # Add it to the back of the queue
+        return False
+
+    def dfs(self, starting_node, target_node, visited=None):
+        """
+        Depth first traversal using recursion
+        """
+        # Mark the node as visited
+        if visited is None:
+            # quese of visited nodes
+            visited = []
+        visited.append(starting_node)
+        if starting_node == target_node:
+            return True
+        # For each child, if that child hasn't been visited, call dft() on that node
+        for node in self.vertices[starting_node].edges:
+            if node not in visited:
+                if self.dfs(node, target_node, visited):
+                    return True
+        return False
+
+
 
 
 
